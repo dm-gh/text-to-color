@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style type="text/css">
+    	body {
+    		margin: 0;
+    		padding: 0;
+    		display: flex;
+    		align-items: center;
+    		justify-content: center;
+    		width: 100vw;
+    		height: 100vh;
+    	}
+    </style>
+</head>
+<body>
+    <input id="input">
+
+    <script type="text/javascript">
+		function hashCode(str) {
+			var hash = 0, i, chr;
+			if (str.length === 0) return hash;
+			for (i = 0; i < str.length; i++) {
+				chr   = str.charCodeAt(i);
+				hash  = ((hash << 5) - hash) + chr;
+				hash |= 0; // Convert to 32bit integer
+			}
+			return hash;
+		};
+
+		const input = document.getElementById("input");
+		input.addEventListener("input", () => {
+			const text = input.value;
+
+            const modifier = (text.length * 5) % 30
+
+			const color = `hsl(${Math.abs(hashCode(text) % 360)}, ${90 + modifier}%, ${50 + modifier}%)`;
+
+			document.body.style.backgroundColor = color;
+		})
+    </script>
+</body>
+</html>
